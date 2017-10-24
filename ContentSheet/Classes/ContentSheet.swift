@@ -582,6 +582,10 @@ extension ContentSheet {
         if let contentView = self._contentView {
             if self.showDefaultHeader, let navigationBar = self.contentNavigationBar {
                 
+                let maskLayer = CAShapeLayer()
+                maskLayer.path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 12, height: 12)).cgPath
+                navigationBar.layer.mask = maskLayer
+                
                 let frame = self._contentContainer.frame
                 
                 if frame.origin.y < UIApplication.shared.statusBarFrame.maxY {
