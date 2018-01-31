@@ -680,6 +680,14 @@ extension ContentSheet {
 
 extension ContentSheet: UIGestureRecognizerDelegate {
     
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == _panGesture {
+            return collapsedHeight < expandedHeight
+        }
+        return true
+    }
+    
+    
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         
         /*
@@ -704,7 +712,9 @@ extension ContentSheet: UIGestureRecognizerDelegate {
         
         let direction = _panDirection(_panGesture, view: _contentContainer, possibleStateChange: _possibleStateChange(_contentContainer.frame.minY))
         
-        if ((_state == .expanded) && (scrollView.contentOffset.y + scrollView.contentInset.top == 0) && (direction == .down)) || (_state == .collapsed) {
+        if (collapsedHeight < expandedHeight)
+            &&
+            (((_state == .expanded) && (scrollView.contentOffset.y + scrollView.contentInset.top == 0) && (direction == .down)) || (_state == .collapsed)) {
             scrollView.isScrollEnabled = false
         } else {
             scrollView.isScrollEnabled = true
