@@ -278,7 +278,11 @@ public class ContentSheet: UIViewController {
         navigationBar.barTintColor = UIColor.clear
         navigationBar.backgroundColor = UIColor.clear
         navigationBar.isTranslucent = true
-
+        
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 12, height: 12)).cgPath
+        header.layer.mask = maskLayer
+        
         header.addSubview(navigationBar)
         
         return header
@@ -824,9 +828,6 @@ extension ContentSheet {
                                                  y: header.bounds.height - navigationBar.frame.height,
                                                  width: navigationBar.frame.width,
                                                  height: navigationBar.frame.height)
-                    let maskLayer = CAShapeLayer()
-                    maskLayer.path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 12, height: 12)).cgPath
-                    navigationBar.layer.mask = maskLayer
                 }
             } else {
                 contentView.frame = self._contentContainer.bounds
