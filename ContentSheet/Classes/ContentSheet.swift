@@ -796,11 +796,7 @@ extension ContentSheet {
         
         if let contentView = self._contentView {
             if self.showDefaultHeader, let header = self.contentHeader {
-                
-                let maskLayer = CAShapeLayer()
-                maskLayer.path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 12, height: 12)).cgPath
-                navigationBar.layer.mask = maskLayer
-                
+                                
                 let frame = self._contentContainer.frame
                 
                 if frame.origin.y < _safeAreaInsets.top {
@@ -828,6 +824,9 @@ extension ContentSheet {
                                                  y: header.bounds.height - navigationBar.frame.height,
                                                  width: navigationBar.frame.width,
                                                  height: navigationBar.frame.height)
+                    let maskLayer = CAShapeLayer()
+                    maskLayer.path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 12, height: 12)).cgPath
+                    navigationBar.layer.mask = maskLayer
                 }
             } else {
                 contentView.frame = self._contentContainer.bounds
